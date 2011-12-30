@@ -27,26 +27,29 @@ int main()
 	unsigned int array[SIZE];
 	unsigned int c;
 	
-	srand(time(0));
+	srand(time(nullptr));	// use current time in seconds as random seed
 	
-	for( c = 0 ; c < SIZE ; c++ )
+	for(c = 0 ; c < SIZE ; c++)	// randomize contents of array
 		array[c] = rand() * rand();
-	for( c = 0 ; c < SIZE ; )
-	    cout << setw(15) << array[c] << (++c%5 ? "" : "\n");
+	cout << "An array of " << SIZE << " random numbers:\n\n";
+	for(c = 0 ; c < SIZE ; c++)	// display array (5 numbers per row)
+	    cout << setw(15) << array[c] << ((c+1)%5 ? "" : "\n");
 	cout << endl;
 	
-	bucketsort(array, SIZE);
+	//bucketsort(array, SIZE);	// sort array
 	
-	for( c = 0 ; c < 5 ; c++ )
-	    cout << "     9876543210";
+	cout << "The same array sorted:\n\n";
+	//for( c = 0 ; c < 5 ; c++ )	// print a header?
+	//    cout << "     9876543210";
 	cout << '|' << endl;
-	for( c = 0 ; c < SIZE ; )
-	    cout << setw(15) << array[c] << (++c%5 ? "" : "\n");
+	for(c = 0 ; c < SIZE ; c++)	// display array (5 numbers per row)
+	    cout << setw(15) << array[c] << ((c+1)%5 ? "" : "\n");
 	cout << endl;
 	
 	system("PAUSE");
 	return 0;
-}
+} // end function main
+
 
 void bucketsort(unsigned int *current, unsigned int size)
 {
@@ -67,11 +70,12 @@ void bucketsort(unsigned int *current, unsigned int size)
 	
 	end = current + size;
 	byte = (unsigned char*)current;
-	while( current < end )
+	while(current < end)
 	{
 		upper[*byte].push(*current++);
 		byte += sizeof(unsigned int);
-	}
+	} // end while
+
 //	//
 //	while( upper < upperEnd )
 //	{
@@ -106,7 +110,7 @@ void bucketsort(unsigned int *current, unsigned int size)
 		temp = upperEnd;
 		upperEnd = lowerEnd;
 		lowerEnd = (queue<unsigned int> *)temp;
-	}
+	} // end while
 	
 	free(lower);
 	current = end - size;
@@ -118,7 +122,7 @@ void bucketsort(unsigned int *current, unsigned int size)
 			upper->pop();
 		}
 		upper++;
-	}
+	} // end while
 
 	
 //	c = 0;
@@ -131,4 +135,4 @@ void bucketsort(unsigned int *current, unsigned int size)
 //	}
 //	cout << endl;
 	
-}
+} // end function bucketsort
